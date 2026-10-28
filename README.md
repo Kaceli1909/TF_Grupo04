@@ -26,7 +26,7 @@
 3. [🔄 Metodología propuesta](#metodologia)
 4. [🧠 Marco VDS — Principios PCS](#vds)
 5. [📅 Entregas del curso](#entregas)
-6. [🤝 Colaboración y uso de IA](#colaboracion)
+6. [🤝 Organización del equipo](#colaboracion)
 7. [📚 Referencias](#referencias)
 
 <a id="problema"></a>
@@ -108,35 +108,15 @@ Estas etiquetas **no equivalen** a medir directamente la resistencia ni la estab
 
 ## 🧠 4. Marco VDS — Principios PCS
 
-El trabajo considera los principios del marco **Veridical Data Science (VDS)**, mediante el enfoque **PCS: Predictibilidad, Computabilidad y Estabilidad**, solicitado en el curso.
+El enfoque **PCS** de *Veridical Data Science* (Yu y Barter, 2024) permite plantear tres criterios para el desarrollo y la evaluación del proyecto:
 
-### 🎯 4.1. Predictibilidad
+| Principio | Aplicación al dataset xBD | ¿Cómo se comprobará? |
+|:--|:--|:--|
+| 🎯 **P — Predictibilidad** | Las imágenes **pre y postdesastre** y sus etiquetas permiten entrenar clasificadores para distinguir cuatro niveles de daño visible. | Se compararán las predicciones con las etiquetas de referencia mediante **F1-score, recall por clase y matriz de confusión**. Se prestará especial atención a *daño mayor* y *destruida*. |
+| 💻 **C — Computabilidad** | Las imágenes y anotaciones pueden procesarse con **Python** (NumPy, Pandas, Matplotlib y PyTorch). Se comenzará con un subconjunto del terremoto de México de 2017. | Se documentarán la **cantidad de imágenes utilizadas**, los recursos de cómputo y los tiempos de procesamiento y entrenamiento, una vez ejecutados los experimentos. |
+| 🛡️ **S — Estabilidad** | El **desbalance entre categorías** y la similitud entre imágenes pueden influir en el desempeño de los modelos. | Se contrastarán resultados con distintas particiones y se evitará compartir imágenes duplicadas o muy relacionadas entre entrenamiento y prueba. Se analizará la **variación de las métricas**. |
 
-El dataset xBD contiene imágenes satelitales de edificaciones antes y después de diferentes desastres naturales, acompañadas de etiquetas que describen sus niveles de daño visible.
-
-La disponibilidad de imágenes y clasificaciones previamente establecidas permite plantear un problema de **aprendizaje supervisado**, en el que los algoritmos identifiquen patrones asociados con las diferentes categorías de daño.
-
-Se espera analizar la capacidad predictiva de los modelos mediante métricas de clasificación, prestando especial atención a la identificación de edificaciones con **daños mayores y destruidas**.
-
-### 💻 4.2. Computabilidad
-
-El conjunto de datos xBD dispone de imágenes satelitales y archivos de anotaciones que pueden procesarse mediante herramientas de **Python**.
-
-Para el desarrollo del proyecto se prevé utilizar bibliotecas como **NumPy, Pandas, Matplotlib, PyTorch** y herramientas de procesamiento de imágenes.
-
-Debido al tamaño del dataset y a los recursos computacionales que requiere el entrenamiento de redes neuronales, inicialmente se propone trabajar con una **muestra representativa** de imágenes correspondientes al terremoto de México de 2017.
-
-La cantidad definitiva de imágenes se establecerá después de verificar su disponibilidad y la distribución de las categorías de daño.
-
-### 🛡️ 4.3. Estabilidad
-
-La estabilidad del modelo se analizará comprobando si mantiene un desempeño similar al utilizar diferentes particiones de entrenamiento y validación.
-
-Asimismo, se examinará la influencia del **desbalance entre las categorías de daño**, debido a que algunas clases pueden contener considerablemente más ejemplos que otras.
-
-Se buscará evitar que imágenes o edificaciones demasiado similares aparezcan simultáneamente en los conjuntos de entrenamiento y prueba, con el propósito de obtener resultados más representativos de la capacidad de generalización.
-
-Los resultados permitirán identificar las limitaciones del modelo y establecer en qué condiciones sus predicciones podrían utilizarse como apoyo para una evaluación preliminar posterior a un desastre.
+**Alcance:** estos criterios describen verificaciones previstas; los resultados se incorporarán después del análisis exploratorio y del entrenamiento.
 
 <a id="entregas"></a>
 
@@ -152,9 +132,9 @@ Los estados se actualizarán conforme el grupo complete y verifique cada etapa.
 
 <a id="colaboracion"></a>
 
-## 🤝 6. Colaboración y uso de IA
+## 🤝 6. Organización del equipo
 
-El repositorio es el espacio compartido del **Grupo 04**. Cada integrante puede registrar su participación a través de *commits* identificables.
+El repositorio es el espacio compartido del **Grupo 04**. Cada integrante registra sus aportes mediante *commits* identificables.
 
 **Ejemplos de mensajes de commit:**
 
@@ -163,9 +143,6 @@ El repositorio es el espacio compartido del **Grupo 04**. Cada integrante puede 
 - `eda: incorporar gráficos de clases`
 - `model: implementar clasificador base`
 - `results: documentar métricas`
-
-> [!CAUTION]
-> El curso permite herramientas de IA como apoyo, pero requiere una **bitácora de prompts e iteraciones**, verificación de fuentes primarias y revisión responsable del código. Este README contiene redacción asistida por IA y deberá documentarse en la bitácora del equipo.
 
 <a id="referencias"></a>
 
