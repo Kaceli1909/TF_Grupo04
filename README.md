@@ -41,8 +41,10 @@ Lima Metropolitana se ubica en una zona de alta sismicidad y concentra numerosas
 
 > ¿Es posible clasificar de forma confiable el **nivel de daño visible** de las edificaciones (sin daño, daño menor, daño mayor o destruida) a partir de pares de imágenes satelitales **pre y postevento**, de manera que sirva como **triaje inicial** antes de la inspección de campo?
 
+**Objetivo general:** desarrollar y comparar modelos de clasificación de daño visible en edificaciones a partir de pares de imágenes satelitales anteriores y posteriores a un desastre, utilizando el dataset xBD.
+
 **Contexto de aplicación:** Lima Metropolitana.  
-**Caso de estudio propuesto:** terremoto de Ciudad de México del **19 de septiembre de 2017**. El análisis del evento mexicano no demuestra por sí mismo la validez de las predicciones para Lima.
+**Caso de estudio principal:** terremoto de Ciudad de México del **19 de septiembre de 2017**. **Palu** se considerará únicamente como posible ampliación si el grupo incorpora otro evento. El análisis de México no demuestra por sí mismo la validez de las predicciones para Lima.
 
 <a id="dataset"></a>
 
@@ -59,7 +61,7 @@ La base de datos **xBD**, vinculada al desafío **xView2**, contiene imágenes s
 | **Anotaciones** | Polígonos de edificaciones y categorías de daño |
 | **Cobertura de xBD completo** | 19 eventos de desastre |
 | **Tamaño aproximado de xBD completo** | 22 000 imágenes y 850 000 polígonos de edificios |
-| **Caso sísmico elegido** | Ciudad de México, 19/09/2017 |
+| **Caso de estudio principal** | Ciudad de México, 19/09/2017; Palu como ampliación opcional |
 | **Cantidad de datos que utilizará el grupo** | **Por definir**, tras revisar los archivos disponibles |
 
 > [!NOTE]
@@ -78,13 +80,20 @@ Estas etiquetas **no equivalen** a medir directamente la resistencia ni la estab
 
 ### 📋 Tipos de datos y variables
 
-| Dato | Tipo | Uso propuesto |
+El dataset proporciona **imágenes pre y postevento**, **polígonos de edificaciones** y **etiquetas de daño**. Para la T2 se propone organizar la información en una tabla exploratoria de **hasta 16 campos por edificación**, sujeta a la disponibilidad real de metadatos:
+
+| Grupo | Campos previstos | Procedencia o tratamiento |
 |:--|:--|:--|
-| Imagen previa | RGB | Referencia del estado anterior |
-| Imagen posterior | RGB | Identificación de cambios visibles |
-| Polígono del edificio | Geometría/anotación | Localización de la edificación |
-| Categoría de daño | Categórica | Variable objetivo |
-| Evento de desastre | Metadato | Filtrado y comparación de resultados |
+| **Identificación y evento (5)** | `split`, `img_id`, `uid`, `disaster`, `disaster_type` | Identificadores, partición y evento; verificar su disponibilidad |
+| **Daño (2)** | `damage`, `damage_ord` | Etiqueta de referencia y codificación numérica propuesta |
+| **Geometría (4)** | `area_px`, `area_m2`, `cx`, `cy` | Variables derivadas del polígono; el área en m² requiere información espacial válida |
+| **Captura (5)** | `gsd`, `off_nadir_angle`, `sun_elevation`, `capture_date`, `sensor` | Metadatos que se incorporarán únicamente si están disponibles y son consistentes |
+
+La tabla anterior es una **estructura de trabajo propuesta**, no un archivo CSV ya generado ni una afirmación de que los 16 campos vienen completos en cada registro.
+
+Para el modelo de visión artificial se emplearán **recortes de las imágenes pre y postevento** asociados con cada edificación. La **etiqueta de daño** será el valor que se busca predecir; no se utilizará como variable de entrada.
+
+**Codificación:** si el equipo utiliza `damage_ord` con valores **0–3** para las cuatro categorías de daño, deberá indicarlo como una *recodificación propia*. En las máscaras de referencia de xView2, **0 corresponde al fondo** y **1–4** representan las cuatro clases de daño.
 
 <a id="metodologia"></a>
 
@@ -96,9 +105,9 @@ Estas etiquetas **no equivalen** a medir directamente la resistencia ni la estab
 
 </div>
 
-1. **Selección:** elegir imágenes y anotaciones correspondientes al evento de interés.
+1. **Selección:** identificar las imágenes y anotaciones disponibles del terremoto de México de 2017.
 2. **Exploración (EDA):** estudiar cantidad, distribución y calidad de etiquetas e imágenes.
-3. **Preparación:** construir particiones de entrenamiento y prueba sin imágenes duplicadas o relacionadas que distorsionen la evaluación.
+3. **Preparación:** generar los recortes por edificio y separar entrenamiento, validación y prueba **por escenas o zonas**, evitando que imágenes iguales o muy próximas aparezcan en más de una partición.
 4. **Modelado:** seleccionar y entrenar algoritmos de visión artificial.
 5. **Evaluación:** comparar las predicciones con las etiquetas y discutir los errores y límites de aplicación.
 
@@ -112,11 +121,11 @@ El enfoque **PCS** de *Veridical Data Science* (Yu y Barter, 2024) permite plant
 
 | Principio | Aplicación al dataset xBD | ¿Cómo se comprobará? |
 |:--|:--|:--|
-| 🎯 **P — Predictibilidad** | Las imágenes **pre y postdesastre** y sus etiquetas permiten entrenar clasificadores para distinguir cuatro niveles de daño visible. | Se compararán las predicciones con las etiquetas de referencia mediante **F1-score, recall por clase y matriz de confusión**. Se prestará especial atención a *daño mayor* y *destruida*. |
-| 💻 **C — Computabilidad** | Las imágenes y anotaciones pueden procesarse con **Python** (NumPy, Pandas, Matplotlib y PyTorch). Se comenzará con un subconjunto del terremoto de México de 2017. | Se documentarán la **cantidad de imágenes utilizadas**, los recursos de cómputo y los tiempos de procesamiento y entrenamiento, una vez ejecutados los experimentos. |
-| 🛡️ **S — Estabilidad** | El **desbalance entre categorías** y la similitud entre imágenes pueden influir en el desempeño de los modelos. | Se contrastarán resultados con distintas particiones y se evitará compartir imágenes duplicadas o muy relacionadas entre entrenamiento y prueba. Se analizará la **variación de las métricas**. |
+| 🎯 **P — Predictibilidad** | Se investigará si las imágenes **pre y postdesastre** permiten distinguir cuatro niveles de daño visible. | **F1-score**, **recall por clase** y **matriz de confusión**, utilizando imágenes de prueba reservadas desde el inicio. |
+| 💻 **C — Computabilidad** | Se procesará un subconjunto documentado de xBD en **Python** (NumPy, Pandas, Matplotlib y PyTorch). | Cantidad de imágenes, **memoria o GPU disponible**, tiempos de ejecución y posibilidad de reproducir el procedimiento. |
+| 🛡️ **S — Estabilidad** | El **desbalance de clases** y las diferencias entre escenas pueden afectar las predicciones. | Comparación de métricas entre particiones por escena y, si los recursos lo permiten, distintas semillas de entrenamiento; análisis de la variación de resultados. |
 
-**Alcance:** estos criterios describen verificaciones previstas; los resultados se incorporarán después del análisis exploratorio y del entrenamiento.
+**Alcance:** estas verificaciones están previstas para T2 y T3; todavía no se han obtenido métricas experimentales. La evaluación dentro de México no debe presentarse como una validación en un **sismo nuevo**.
 
 <a id="entregas"></a>
 
@@ -151,6 +160,7 @@ El repositorio es el espacio compartido del **Grupo 04**. Cada integrante regist
 - Gupta, R., et al. (2019). *xBD: A Dataset for Assessing Building Damage from Satellite Imagery.* [arXiv:1911.09296](https://arxiv.org/abs/1911.09296).
 - Yu, B., & Barter, R. (2024). *Veridical Data Science.* MIT Press. [Sitio del libro](https://vdsbook.com/).
 - xView2. [Proyecto y dataset](https://www.xview2.org/).
+- DIU xView2. [Modelo de referencia y codificación de máscaras](https://github.com/DIUx-xView/xView2_baseline).
 
 ---
 
