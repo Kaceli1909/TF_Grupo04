@@ -144,7 +144,7 @@ Los resultados permitirán identificar las limitaciones del modelo y establecer 
 
 | Entrega | Objetivo | Estado |
 |:--:|:--|:--:|
-| **T1 · 30 %** | Problema, dataset, GitHub y marco VDS | 🟡 Documentación avanzada; exposición no realizada |
+| **T1 · 30 %** | Problema, dataset, GitHub y marco VDS | 🟡 Documentación avanzada |
 | **T2 · 30 %** | Análisis exploratorio de datos y plan de algoritmos | ⚪ Pendiente |
 | **T3 · 40 %** | Implementación en Python, evaluación e informe final | ⚪ Pendiente |
 
