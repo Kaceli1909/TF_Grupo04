@@ -1,0 +1,13 @@
+T2 | GRUPO 04 | EDA INICIAL DE xBD MÉXICO
+Registros analizados: 51473
+Escenas: 193
+Nulos: 0
+Duplicados por escena y uid: 0
+Etiquetas distintas de las cinco esperadas: 0
+Sin clasificar: 111
+Escenas con al menos una edificación dañada: 47
+Mediana de edificaciones por escena: 237
+
+Los registros 'sin clasificar' se mantienen en los gráficos de EDA.
+No hay variables numéricas físicas para calcular correlaciones válidas.
+Para análisis geométrico se requieren los JSON de anotaciones originales.
