@@ -1,0 +1,7 @@
+VALIDACION DATASET xBD - MEXICO EARTHQUAKE
+Archivos PRE: 193
+Archivos POST: 193
+Escenas: 193
+Anotaciones PRE/POST emparejadas: 51473
+Distribucion de danos: {'no-damage': 51084, 'minor-damage': 221, 'un-classified': 111, 'major-damage': 54, 'destroyed': 3}
+Escenas con diferencias: 0
