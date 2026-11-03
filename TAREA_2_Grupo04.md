@@ -152,7 +152,7 @@ Estos resultados evidencian variación en la cantidad de edificaciones anotadas 
 ## 🔍 1.5. Interpretación de los resultados y limitaciones
 
 - **Desbalance extremo.** La abundancia de edificios sin daño puede favorecer modelos que predigan la clase mayoritaria, aunque identifiquen mal daños importantes.
-- **Muy pocos casos destruidos.** Los **3 registros** `destroyed` no permiten, por sí solos, una evaluación robusta de esa clase. Será necesario estudiar la incorporación de otras escenas o eventos antes de definir la estrategia final de modelado.
+- **Muy pocos casos destruidos.** Solo se identificaron **3 registros** `destroyed`. Se plantea ampliar la muestra con otros eventos de xBD antes de entrenar un clasificador de cuatro clases; con los datos actuales no es posible evaluar de forma confiable la categoría «destruida».
 - **Etiquetas sin clasificar.** Los **111 casos** `un-classified` se mantienen documentados, pero no se usarían como ejemplos supervisados de las cuatro clases sin una revisión adicional.
 - **Correlaciones.** El CSV actual solo contiene identificadores y categorías de daño; se requieren variables geométricas numéricas para analizar relaciones con el nivel de daño.
 
@@ -206,11 +206,24 @@ La implementación se propone en **Python con PyTorch**, de acuerdo con los recu
 | Recortes por edificio | Extraer ventanas asociadas a los polígonos y alinearlas | ⏳ |
 | Estandarización | Redimensionar los recortes y normalizar sus canales | ⏳ |
 | Partición | Separar escenas completas en entrenamiento, validación y prueba | ⏳ |
-| Desbalance | Evaluar pesos de clase, muestreo controlado y/o focal loss **solo en entrenamiento** | ⏳ |
+| Desbalance | Ampliar la muestra, equilibrar lotes y comparar pérdidas ponderadas o focal loss **solo en entrenamiento** | ✅ Plan T2 |
 | Entrenamiento | Comparar los dos modelos bajo un protocolo equivalente | T3 |
 
-> [!CAUTION]
-> **Viabilidad de cuatro clases.** El subconjunto contiene solo **3 edificios destruidos**. Se evaluará la ampliación del conjunto antes de definir las particiones. Si se reduce el número de clases, el cambio deberá justificarse.
+### ⚖️ Tratamiento del desbalance de clases
+
+El conjunto de México presenta **51 084** edificios sin daño, **221** con daño menor, **54** con daño mayor y **3** destruidos. Para la siguiente etapa se establece este protocolo:
+
+| Decisión | Aplicación prevista |
+|:--|:--|
+| **1. Ampliar los casos dañados** | Revisar otros eventos etiquetados de xBD e incorporar pares PRE/POST de las categorías minoritarias, registrando su evento de origen. |
+| **2. Separar antes de equilibrar** | Dividir por **escenas o zonas completas** en entrenamiento, validación y prueba; impedir que edificios de una misma escena aparezcan en particiones distintas. |
+| **3. Equilibrar el entrenamiento** | Reducir la frecuencia de ejemplos `no-damage` en los lotes y aumentar la selección de edificios dañados. Aplicar giros y reflejos idénticos a las imágenes PRE/POST del mismo par. |
+| **4. Comparar funciones de pérdida** | Utilizar **cross-entropy ponderada** como referencia y compararla con **focal loss**, que da menor peso a ejemplos fáciles [5]. Calcular los pesos con los datos de entrenamiento y evitar valores extremos. |
+| **5. Evaluar con datos no equilibrados** | Conservar validación y prueba con sus proporciones originales; informar **F1 macro**, **recall por clase** y matriz de confusión. |
+
+**Viabilidad de cuatro clases.** Se mantendrá la clasificación original si, al ampliar los datos, cada categoría cuenta con suficientes casos para entrenar y evaluar de manera independiente. Si `destroyed` sigue representada por muy pocos ejemplos, se examinará una alternativa de **tres clases**: sin daño, daño menor y daño grave (`major-damage` + `destroyed`). En ese caso se documentará la agrupación y la pérdida de distinción entre daño mayor y destrucción.
+
+El **plan de tratamiento del desbalance está definido para la T2**. La ampliación de imágenes, el entrenamiento y la comparación de las técnicas se desarrollarán posteriormente.
 
 ## 📌 2.4. Justificación técnica
 
@@ -261,8 +274,8 @@ El marco de **Veridical Data Science** propone considerar **Predictabilidad, Com
 | Verificación de imágenes satelitales originales | Tabla de integridad de pares PRE/POST | ⏳ |
 | Extracción y revisión de geometrías JSON | Tabla de áreas y gráficos asociados | ⏳ |
 | Visualización de ejemplos de edificios | Imágenes reales con sus anotaciones | ⏳ |
-| Revisión de viabilidad de cuatro categorías | Propuesta final de tratamiento del desbalance | ⏳ |
-| Diseño definitivo del protocolo de entrenamiento | Modelo(s), particiones y métricas de la T3 | ⏳ |
+| Tratamiento del desbalance y viabilidad de cuatro categorías | Estrategia definida; ampliación de los datos y número de clases por confirmar | 🟡 |
+| Plan de modelos, particiones y métricas | Protocolo propuesto para la implementación de la T3 | ✅ |
 
 ## 🐍 Código y reproducibilidad
 
@@ -290,6 +303,7 @@ Este comando lee `tabla_edificaciones.csv` y guarda las salidas en `01_Datos_Pre
 2. **Yu, B., & Barter, R. (2024).** *Veridical Data Science*. MIT Press. [Libro](https://vdsbook.com/).
 3. **DIU xView2.** *xView2 Baseline: Building Localization and Damage Classification*. [Repositorio de referencia](https://github.com/DIUx-xView/xView2_baseline).
 4. **DIU xView2.** *First Place Solution for xView2*. [Repositorio con enfoque siamés](https://github.com/DIUx-xView/xView2_first_place).
+5. **Lin, T.-Y., et al. (2017).** *Focal Loss for Dense Object Detection*. ICCV. [Artículo](https://arxiv.org/abs/1708.02002).
 
 ---
 
