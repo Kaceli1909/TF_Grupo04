@@ -1,0 +1,29 @@
+AUDITORÍA DE TABLA_EDIFICACIONES.CSV — xBD / MÉXICO
+
+Archivo: tabla_edificaciones.csv
+Registros originales: 51,473
+Escenas diferentes: 193
+Registros con valores vacíos: 0
+Filas duplicadas exactas (excluida primera aparición): 0
+Registros implicados en UIDs duplicados por escena: 0
+Escenas con formato incorrecto: 0
+UIDs con formato incorrecto: 0
+Etiquetas desconocidas: 0
+
+CATEGORÍAS (DATOS ORIGINALES)
+  no-damage        51,084  (99.2443 %)
+  minor-damage        221  (0.4294 %)
+  major-damage         54  (0.1049 %)
+  destroyed             3  (0.0058 %)
+  un-classified       111  (0.2156 %)
+
+SALIDAS
+Edificaciones con etiqueta conocida: 51,362
+Edificaciones sin clasificar, separadas: 111
+Registros que requieren investigación: 0
+
+LÍMITES DE ESTA AUDITORÍA
+- Solo se revisa la consistencia de las tres columnas del CSV.
+- No se verifican imágenes, coordenadas, polígonos ni JSON originales.
+- No se corrige el desbalance de clases ni se asignan etiquetas nuevas.
+- Se recomienda separar conjuntos de entrenamiento/prueba por escena o zona.
