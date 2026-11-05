@@ -156,7 +156,6 @@ Estos resultados evidencian variación en la cantidad de edificaciones anotadas 
 - **Etiquetas sin clasificar.** Los **111 casos** `un-classified` se mantienen documentados, pero no se usarían como ejemplos supervisados de las cuatro clases sin una revisión adicional.
 - **Correlaciones.** El CSV actual solo contiene identificadores y categorías de daño; se requieren variables geométricas numéricas para analizar relaciones con el nivel de daño.
 
-### 🖼️ 1.6. Análisis visual y geométrico — pendiente
 
 ### 🖼️ 1.6. Análisis visual y geométrico (Imágenes originales y polígonos JSON)
 
