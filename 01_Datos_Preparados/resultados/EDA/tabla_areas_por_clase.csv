@@ -1,0 +1,6 @@
+clase_dano,Cantidad,Porcentaje,Area_Media_px2,Area_Mediana_px2,Area_Min_px2,Area_Max_px2
+no-damage,32066,99.36,1004.7,549.8,17.1,114306.6
+minor-damage,110,0.34,1517.0,907.0,25.4,12694.9
+major-damage,18,0.06,1397.4,773.1,110.5,6391.3
+destroyed,2,0.01,1849.7,1849.7,269.3,3430.1
+un-classified,75,0.23,726.8,428.2,36.9,8796.1
