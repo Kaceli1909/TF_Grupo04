@@ -158,9 +158,36 @@ Estos resultados evidencian variación en la cantidad de edificaciones anotadas 
 
 ### 🖼️ 1.6. Análisis visual y geométrico — pendiente
 
-Con los JSON originales se revisarán las geometrías y se comprobarán los pares de imágenes **antes/después del sismo**. Cuando la información espacial lo permita, se calcularán características como el área de los polígonos.
+### 🖼️ 1.6. Análisis visual y geométrico (Imágenes originales y polígonos JSON)
 
-**Por incorporar:** ejemplos PRE/POST con polígonos y daños; reporte de integridad de imágenes; distribución de áreas de edificaciones, **en píxeles cuadrados** cuando corresponda.
+Con los archivos originales del evento `mexico-earthquake` (imágenes satelitales `.png` y anotaciones espaciales `.json`), se ejecutó la verificación de integridad de pares PRE/POST, la extracción de áreas en píxeles cuadrados (px²) mediante geometrías WKT y la superposición visual de polígonos por nivel de daño.
+
+#### A. Verificación de integridad de imágenes satelitales originales (Pares PRE/POST)
+Se comprobó que cada escena cuente con su par de imágenes satelitales (`_pre_disaster.png` y `_post_disaster.png`) y sus correspondientes etiquetas (`_post_disaster.json`), sin archivos corruptos ni pares incompletos.
+
+* **Evidencia completa por escena:** [`tabla_integridad_pares_pre_post.csv`](01_Datos_Preparados/resultados/tabla_integridad_pares_pre_post.csv)
+* **Resumen general de integridad:** [`resumen_integridad_mexico.csv`](01_Datos_Preparados/resultados/resumen_integridad_mexico.csv)
+
+#### B. Extracción y revisión de geometrías JSON (Áreas en px²)
+Se procesaron las geometrías WKT alojadas en la clave `features -> xy` de los archivos JSON posteriores al evento, validando que los polígonos sean cerrados y no vacíos, y calculando su área (px²) y perímetro (px).
+
+* **Base de geometrías por edificación:** [`edificios_geometrias_mexico.csv`](01_Datos_Preparados/resultados/edificios_geometrias_mexico.csv)
+* **Estadísticas de área por categoría de daño:** [`tabla_areas_por_clase.csv`](01_Datos_Preparados/resultados/EDA/tabla_areas_por_clase.csv)
+
+#### 📐 Gráfico 4. Distribución de áreas de polígonos y comparación por nivel de daño
+
+![Distribución de áreas y comparación por nivel de daño](01_Datos_Preparados/resultados/EDA/grafico_areas_geometrias.png)
+
+*Figura 4. Izquierda: Histograma del área de edificaciones en px² (filtrando valores extremos superiores al percentil 98 para visualización). Derecha: Diagrama de cajas (boxplot) comparando los tamaños de planta según la categoría de daño.*
+
+#### C. Visualización de ejemplos reales de edificaciones (PRE / POST + Anotaciones JSON)
+Para vincular los registros tabulares con la evidencia satelital, se presenta la escena real `mexico-earthquake_00000052` antes del sismo (PRE), después del sismo (POST) y con los polígonos del archivo JSON superpuestos según su etiqueta de daño:
+
+#### 🛰️ Gráfico 5. Comparativa satelital PRE/POST y polígonos de daño superpuestos
+
+![Visualización real PRE POST y polígonos](01_Datos_Preparados/resultados/EDA/visualizacion_real_pre_post_poligonos.png)
+
+*Figura 5. Escena satelital real del evento de México mostrando el estado previo (izquierda), posterior (centro) y la validación espacial de los polígonos etiquetados (derecha: verde = sin daño, amarillo = daño menor, naranja = daño mayor, rojo = destruida).*
 
 ---
 
@@ -223,6 +250,14 @@ El conjunto de México presenta **51 084** edificios sin daño, **221** con dañ
 
 **Viabilidad de cuatro clases.** Se mantendrá la clasificación original si, al ampliar los datos, cada categoría cuenta con suficientes casos para entrenar y evaluar de manera independiente. Si `destroyed` sigue representada por muy pocos ejemplos, se examinará una alternativa de **tres clases**: sin daño, daño menor y daño grave (`major-damage` + `destroyed`). En ese caso se documentará la agrupación y la pérdida de distinción entre daño mayor y destrucción.
 
+> **Propuestas técnicas adicionales ante la escasez crítica de estructuras gravemente dañadas (`major-damage` y `destroyed`):**
+> Además de ampliar la muestra con otros desastres de *xBD*, se incorporan tres mecanismos específicos para evitar el sobreajuste en las clases minoritarias:
+> 1. **Muestreo estratificado por lote (`WeightedRandomSampler`) + Aumentación geométrica pareada:** En cada *mini-batch* de entrenamiento se forzará una proporción controlada de recortes con daño aplicando transformaciones idénticas al par PRE/POST (rotaciones ortogonales de 90°, 180°, 270°, espejado horizontal/vertical y variación fotométrica leve) exclusivamente sobre las clases minoritarias.
+> 2. **Transfer Learning inter-sismo (Pre-entrenamiento multi-evento en xBD):** Pre-entrenar los pesos de las ramas ResNet18 utilizando eventos sísmicos y de colapso estructural con mayor densidad de destrucción en *xBD* (p. ej., *Palu Tsunami*, *Santa Rosa* o *Sunda Strait*), realizando luego un ajuste fino (*fine-tuning*) sobre el dominio constructivo de México.
+> 3. **Clasificación jerárquica en dos etapas (Plan de contingencia para triaje):** Si la clase `destroyed` (3 casos locales) impide la convergencia en 4 clases puras, implementar un esquema jerárquico: **Etapa 1 (Filtro binario de daño):** *Sin daño* vs. *Con daño*; **Etapa 2 (Severidad estructural):** *Daño menor (Habitable)* vs. *Daño severo/Colapso (`major-damage` + `destroyed` — Inhabitable)*, priorizando maximizar el *Recall* de estructuras críticas en emergencias.
+
+El **plan de tratamiento del desbalance está definido para la T2**. La ampliación de imágenes, el entrenamiento y la comparación de las técnicas se desarrollarán posteriormente.
+
 El **plan de tratamiento del desbalance está definido para la T2**. La ampliación de imágenes, el entrenamiento y la comparación de las técnicas se desarrollarán posteriormente.
 
 ## 📌 2.4. Justificación técnica
@@ -268,14 +303,14 @@ El marco de **Veridical Data Science** propone considerar **Predictabilidad, Com
 # V. Próximas actividades
 
 | Actividad | Producto que se incorporará a este informe | Estado |
-|:--|:--|:--:|
+| :--- | :--- | :---: |
 | Validación y separación de etiquetas del CSV | Script y resumen de auditoría | ✅ |
-| EDA de daños y edificaciones por escena | Tres gráficos, dos CSV y resumen | ✅ |
-| Verificación de imágenes satelitales originales | Tabla de integridad de pares PRE/POST | ⏳ |
-| Extracción y revisión de geometrías JSON | Tabla de áreas y gráficos asociados | ⏳ |
-| Visualización de ejemplos de edificios | Imágenes reales con sus anotaciones | ⏳ |
-| Tratamiento del desbalance y viabilidad de cuatro categorías | Estrategia definida; ampliación de los datos y número de clases por confirmar | 🟡 |
-| Plan de modelos, particiones y métricas | Protocolo propuesto para la implementación de la T3 | ✅ |
+| EDA de daños y edificaciones por escena | Tres gráficos, dos CSV y resumen. | ✅ |
+| Verificación de imágenes satelitales originales | Tabla de integridad de pares PRE/POST | ✅ |
+| Extracción y revisión de geometrías JSON | Tabla de áreas y gráficos asociados | ✅ |
+| Visualización de ejemplos de edificios | Imágenes reales con sus anotaciones | ✅ |
+| Tratamiento del desequilibrio y viabilidad de cuatro categorías | Estrategia definida; Ampliación de los datos y número de clases para confirmar | ✅ |
+| Plan de modelos, particiones y métricas. | Protocolo propuesto para la implementación de la T3 | ✅ |
 
 ## 🐍 Código y reproducibilidad
 
