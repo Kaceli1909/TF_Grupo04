@@ -157,37 +157,42 @@ Estos resultados evidencian variación en la cantidad de edificaciones anotadas 
 - **Correlaciones.** El CSV actual solo contiene identificadores y categorías de daño; se requieren variables geométricas numéricas para analizar relaciones con el nivel de daño.
 
 
-### 🖼️ 1.6. Análisis visual y geométrico (Imágenes originales y polígonos JSON)
+### 🖼️ 1.6. Análisis visual, geométrico e incorporación de evento con alta severidad (`palu-tsunami`)
 
-Con los archivos originales del evento `mexico-earthquake` (imágenes satelitales `.png` y anotaciones espaciales `.json`), se ejecutó la verificación de integridad de pares PRE/POST, la extracción de áreas en píxeles cuadrados (px²) mediante geometrías WKT y la superposición visual de polígonos por nivel de daño.
+Con los archivos originales `.png` y `.json` del dataset *xBD*, se ejecutó la verificación de pares PRE/POST, el cálculo de áreas de polígonos en píxeles cuadrados (px²) mediante geometrías WKT y la superposición visual de etiquetas. 
+
+Además, atendiendo a la escasa presencia de daños severos en el evento `mexico-earthquake` (solo 3 edificaciones destruidas y 54 con daño mayor), se procesó e incorporó el evento sísmico y de tsunami **`palu-tsunami`** del mismo conjunto *xBD*, el cual presenta miles de edificaciones en las categorías `major-damage` y `destroyed`, permitiendo contrastar visual y estadísticamente escenarios de colapso masivo.
 
 #### A. Verificación de integridad de imágenes satelitales originales (Pares PRE/POST)
-Se comprobó que cada escena cuente con su par de imágenes satelitales (`_pre_disaster.png` y `_post_disaster.png`) y sus correspondientes etiquetas (`_post_disaster.json`), sin archivos corruptos ni pares incompletos.
+Se comprobó que cada escena evaluada cuente con su par completo de imágenes satelitales (`_pre_disaster.png` y `_post_disaster.png`) y su archivo de anotaciones (`_post_disaster.json`):
 
-* **Evidencia completa por escena:** [`tabla_integridad_pares_pre_post.csv`](01_Datos_Preparados/resultados/tabla_integridad_pares_pre_post.csv)
-* **Resumen general de integridad:** [`resumen_integridad_mexico.csv`](01_Datos_Preparados/resultados/resumen_integridad_mexico.csv)
+* **Evento `mexico-earthquake`:** [`tabla_integridad_pares_pre_post.csv`](01_Datos_Preparados/resultados/tabla_integridad_pares_pre_post.csv) · [`resumen_integridad_mexico.csv`](01_Datos_Preparados/resultados/resumen_integridad_mexico.csv)
+* **Evento `palu-tsunami` (Alto daño):** [`tabla_integridad_pares_palu-tsunami.csv`](01_Datos_Preparados/resultados/tabla_integridad_pares_palu-tsunami.csv) · [`resumen_integridad_palu-tsunami.csv`](01_Datos_Preparados/resultados/resumen_integridad_palu-tsunami.csv)
 
 #### B. Extracción y revisión de geometrías JSON (Áreas en px²)
-Se procesaron las geometrías WKT alojadas en la clave `features -> xy` de los archivos JSON posteriores al evento, validando que los polígonos sean cerrados y no vacíos, y calculando su área (px²) y perímetro (px).
+Se validaron las geometrías WKT (`features -> xy`) comprobando que los polígonos sean cerrados y válidos, extrayendo el área (px²) y perímetro (px) por nivel de daño:
 
-* **Base de geometrías por edificación:** [`edificios_geometrias_mexico.csv`](01_Datos_Preparados/resultados/edificios_geometrias_mexico.csv)
-* **Estadísticas de área por categoría de daño:** [`tabla_areas_por_clase.csv`](01_Datos_Preparados/resultados/EDA/tabla_areas_por_clase.csv)
+* **Geometrías y áreas (`mexico-earthquake`):** [`edificios_geometrias_mexico.csv`](01_Datos_Preparados/resultados/edificios_geometrias_mexico.csv) · [`tabla_areas_por_clase.csv`](01_Datos_Preparados/resultados/EDA/tabla_areas_por_clase.csv)
+* **Geometrías y áreas (`palu-tsunami`):** [`edificios_geometrias_palu-tsunami.csv`](01_Datos_Preparados/resultados/edificios_geometrias_palu-tsunami.csv) · [`tabla_areas_por_clase_palu-tsunami.csv`](01_Datos_Preparados/resultados/EDA/tabla_areas_por_clase_palu-tsunami.csv)
 
-#### 📐 Gráfico 4. Distribución de áreas de polígonos y comparación por nivel de daño
+#### 📐 Gráfico 4. Distribución de áreas y comparación por nivel de daño (`mexico-earthquake` vs. `palu-tsunami`)
 
-![Distribución de áreas y comparación por nivel de daño](01_Datos_Preparados/resultados/EDA/grafico_areas_geometrias.png)
+![Áreas México](01_Datos_Preparados/resultados/EDA/grafico_areas_geometrias.png)
+*Figura 4a. Distribución de áreas en px² y boxplot por categoría de daño en el evento `mexico-earthquake`.*
 
-*Figura 4. Izquierda: Histograma del área de edificaciones en px² (filtrando valores extremos superiores al percentil 98 para visualización). Derecha: Diagrama de cajas (boxplot) comparando los tamaños de planta según la categoría de daño.*
+![Áreas Palu Tsunami](01_Datos_Preparados/resultados/EDA/grafico_areas_geometrias_palu-tsunami.png)
+*Figura 4b. Distribución de áreas en px² y boxplot por categoría de daño en el evento `palu-tsunami`, con representación estadística robusta en las clases de daño mayor y destrucción.*
 
 #### C. Visualización de ejemplos reales de edificaciones (PRE / POST + Anotaciones JSON)
-Para vincular los registros tabulares con la evidencia satelital, se presenta la escena real `mexico-earthquake_00000052` antes del sismo (PRE), después del sismo (POST) y con los polígonos del archivo JSON superpuestos según su etiqueta de daño:
+A continuación, se contrasta una escena del sismo de México (predominio de estructuras sin daño visible) frente a una escena crítica del evento **`palu-tsunami`**, donde se aprecia claramente la destrucción estructural en la imagen POST y la correspondiente marcación de polígonos en rojo (`destroyed`) y naranja (`major-damage`):
 
 #### 🛰️ Gráfico 5. Comparativa satelital PRE/POST y polígonos de daño superpuestos
 
-![Visualización real PRE POST y polígonos](01_Datos_Preparados/resultados/EDA/visualizacion_real_pre_post_poligonos.png)
+![Visualización México](01_Datos_Preparados/resultados/EDA/visualizacion_real_pre_post_poligonos.png)
+*Figura 5a. Escena satelital del evento `mexico-earthquake` (predominio de polígonos verdes `no-damage` y casos puntuales de daño).*
 
-*Figura 5. Escena satelital real del evento de México mostrando el estado previo (izquierda), posterior (centro) y la validación espacial de los polígonos etiquetados (derecha: verde = sin daño, amarillo = daño menor, naranja = daño mayor, rojo = destruida).*
-
+![Visualización Palu Tsunami](01_Datos_Preparados/resultados/EDA/visualizacion_real_pre_post_palu-tsunami.png)
+*Figura 5b. Escena satelital de alto impacto del evento `palu-tsunami` mostrando el estado previo (PRE), la devastación posterior al evento (POST) y la superposición de anotaciones JSON con alta densidad de estructuras destruidas (rojo) y con daño severo (naranja).*
 ---
 
 # II. Plan algorítmico
