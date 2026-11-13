@@ -3,13 +3,13 @@
 **Proyecto:** Evaluación de daño visible en edificaciones mediante imágenes satelitales PRE/POST de México y Palu  
 **Grupo:** 04 · Aplicaciones de IA en Estructuras  
 **Herramienta consultada:** ChatGPT (OpenAI)  
-**Alcance del registro:** consultas seleccionadas del desarrollo, depuración, análisis y documentación del TF3.
+**Alcance del registro:** selección de consultas sobre metodología, programación, depuración, evaluación y documentación técnica del TF3.
 
-> **Criterio de registro.** Los prompts siguientes se **reescribieron con redacción técnica y orden cronológico aproximado** a partir de solicitudes realizadas durante el desarrollo. No son citas textuales ni una exportación íntegra del historial del chat. Se agrupan varias interacciones de seguimiento cuando abordan una misma tarea. Las métricas, conteos y errores se atribuyen a los registros de CIMLAB AI y archivos revisados, no a resultados experimentales generados por el modelo conversacional.
+> **Criterio de registro.** Los prompts siguientes se **reescribieron con redacción técnica y orden cronológico aproximado** a partir de solicitudes realizadas durante el desarrollo. No son citas textuales ni una exportación íntegra del historial del chat. Se agrupan varias interacciones de seguimiento cuando abordan una misma tarea. **Se trata de una bitácora técnica temática, no de un inventario exhaustivo de todos los usos de IA durante el curso.** Las métricas, conteos y errores se atribuyen a los registros de CIMLAB AI y archivos revisados, no a resultados experimentales generados por el modelo conversacional.
 
 ## Propósito y forma de uso
 
-La herramienta de IA se utilizó como apoyo para **plantear alternativas metodológicas, revisar fallos de programación, explicar métricas, ayudar a redactar y organizar resultados y elaborar materiales de presentación**. El equipo proporcionó imágenes, archivos, capturas de errores y decisiones de alcance. Los entrenamientos y sus salidas se ejecutaron en el entorno local mediante CIMLAB AI.
+La herramienta de IA se utilizó como apoyo para **plantear alternativas metodológicas, revisar fallos de programación, explicar métricas y organizar la documentación técnica de los experimentos**. El equipo proporcionó imágenes, archivos, capturas de errores y decisiones de alcance. Los entrenamientos y sus salidas se ejecutaron en el entorno local mediante CIMLAB AI.
 
 ### Criterios de trazabilidad
 
@@ -234,13 +234,13 @@ La herramienta de IA se utilizó como apoyo para **plantear alternativas metodol
 
 **Comprobación / decisión del equipo:** ProtoNet aportó conteos registrados; los demás se reconstruyeron desde métricas redondeadas y se identificaron como tales.
 
-## E. Redacción académica, visualización y presentación
+## E. Documentación técnica y discusión de resultados
 
 ### Consulta 27
 
 **Prompt reformulado:** Documentar la entrega TF3 en una carpeta independiente, manteniendo intactos el README y los materiales de TF2.
 
-**Asistencia obtenida:** Estructura `TF3/` con README, scripts Python, artículo IEEE y resultados.
+**Asistencia obtenida:** Propuesta de organización de `TF3/` con README, scripts Python, artículo IEEE y resultados.
 
 **Comprobación / decisión del equipo:** El usuario eligió subir los archivos manualmente a GitHub.
 
@@ -248,41 +248,20 @@ La herramienta de IA se utilizó como apoyo para **plantear alternativas metodol
 
 **Prompt reformulado:** Redactar y organizar el README y el artículo IEEE con el procedimiento de procesamiento TIFF, las particiones, los modelos y las métricas verificadas.
 
-**Asistencia obtenida:** Redacción técnica, tablas, discusión, limitaciones y referencias.
+**Asistencia obtenida:** Organización de texto técnico, tablas, discusión, limitaciones y referencias.
 
 **Comprobación / decisión del equipo:** Se evitó presentar validación como prueba final.
 
+
 ### Consulta 29
 
-**Prompt reformulado:** Preparar una exposición con tablas, gráficos, matrices de confusión y explicación esquemática de Hybrid.
-
-**Asistencia obtenida:** Presentación del método y resultados en diapositivas.
-
-**Comprobación / decisión del equipo:** Se reconstruyó el PPTX después de un error de compatibilidad; no constituye dato experimental.
-
-### Consulta 30
-
-**Prompt reformulado:** Proponer conclusiones y futuras líneas de investigación: evaluación por evento, más arquitecturas y clasificación por intensidad de daño.
+**Prompt reformulado:** Delimitar las conclusiones y futuras líneas de investigación a partir de los resultados de validación, incluyendo evaluación por evento, arquitecturas adicionales y clasificación por intensidad de daño.
 
 **Asistencia obtenida:** Discusión de límites del modelo binario y posible clasificación multiclase.
 
 **Comprobación / decisión del equipo:** Se distinguieron propuestas futuras de experimentos ejecutados.
 
-### Consulta 31
 
-**Prompt reformulado:** Preparar un guion privado para cuatro expositores, además de preguntas y respuestas posibles para la defensa.
-
-**Asistencia obtenida:** Material de práctica separado de los entregables públicos.
-
-**Comprobación / decisión del equipo:** El guion se entregó fuera de la carpeta pública de GitHub.
-
-### Consulta 32
-
-**Prompt reformulado:** Preparar una bitácora de uso de ChatGPT con las solicitudes del proyecto organizadas y mejor redactadas, integrándola a README y artículo IEEE.
-
-**Asistencia obtenida:** Este registro de consultas y apoyos de IA.
-
-**Comprobación / decisión del equipo:** Los prompts se presentan como formulaciones normalizadas, no como transcripciones literales.
 
 ## Síntesis de la contribución y responsabilidad del equipo
 
@@ -292,14 +271,14 @@ La herramienta de IA se utilizó como apoyo para **plantear alternativas metodol
 | Preparación técnica | Diagnósticos y propuestas de parches para TIFF, bordes y particiones | Ejecución local, capturas de errores, verificación de recortes y manifiesto |
 | Entrenamiento | Explicación de parámetros y métricas | Entrenamiento en CIMLAB AI; registros de validación de Random Forest, DINOv2, ProtoNet y Hybrid |
 | Resultados | Estructuración de tablas y figuras | Contraste con capturas y distinción entre conteos registrados y reconstruidos |
-| Informe y presentación | Apoyo editorial, tablas, gráficos y guion | Selección, revisión y presentación del contenido |
+| Documentación académica | Apoyo editorial, organización del artículo y tablas | Revisión del README, metodología, discusión y documentación de resultados |
 
 ## Limitaciones del registro y uso responsable
 
 1. La lista reúne **solicitudes representativas**, agrupadas y mejor redactadas. No permite reconstruir cada mensaje, cada respuesta ni la fecha exacta de todas las interacciones.
 2. La asistencia mediante IA no sustituye la revisión del código, la integridad del dataset, la validación de los resultados ni las referencias bibliográficas de fuentes originales.
 3. Los resultados publicados corresponden a **validación**; `test` se mantuvo reservado. ResNet18 Early Fusion quedó sin entrenamiento concluido en el corte reportado.
-4. El formato de salida de ChatGPT se revisó y, cuando surgieron errores (actualizadores, lectura TIFF o presentación), se corrigió mediante iteraciones posteriores. La presencia de una respuesta previa no se considera prueba de que fuera correcta.
+4. El formato de salida de ChatGPT se revisó y, cuando surgieron errores (actualizadores y lectura TIFF), se corrigió mediante iteraciones posteriores. La presencia de una respuesta previa no se considera prueba de que fuera correcta.
 5. No se atribuye a la IA la ejecución de los entrenamientos locales ni la autoría de las imágenes satelitales o etiquetas del conjunto xBD.
 
 ## Materiales del repositorio relacionados

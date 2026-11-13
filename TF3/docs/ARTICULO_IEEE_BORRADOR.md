@@ -39,7 +39,7 @@ Se inició adicionalmente **ResNet18 Early Fusion** con un máximo de 20 épocas
 
 ### E. Trazabilidad del apoyo de herramientas de IA
 
-Se empleó **ChatGPT (OpenAI)** como herramienta auxiliar para discutir alternativas de procesamiento, interpretar mensajes de error y métricas, y estructurar código, tablas y texto técnico. Para transparentar su uso, se elaboró una [bitácora de consultas](BITACORA_USO_IA.md) con **32 prompts representativos reformulados**, sus objetivos, la asistencia recibida y la comprobación disponible. El registro no se presenta como transcripción literal del historial.
+Se empleó **ChatGPT (OpenAI)** como herramienta auxiliar para discutir alternativas de procesamiento, interpretar mensajes de error y métricas, y estructurar código, tablas y texto técnico. Para transparentar su uso, se elaboró una [bitácora de consultas](BITACORA_USO_IA.md) con **29 consultas técnicas representativas reformuladas**, sus objetivos, la asistencia recibida y la comprobación disponible. La bitácora recoge una selección temática de solicitudes y no constituye una transcripción literal ni exhaustiva del historial.
 
 El equipo definió la clasificación de daño, seleccionó los eventos y ejecutó los entrenamientos localmente. Los conteos y métricas se tomaron de los registros de CIMLAB AI; cuando se reconstruyeron valores a partir de métricas redondeadas, esa condición se declara expresamente. Las recomendaciones de la herramienta se contrastaron con el manifiesto, el código y los errores observados. Esta asistencia no sustituye la validación con el conjunto reservado de prueba ni la evaluación independiente del desempeño.
 

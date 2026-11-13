@@ -195,7 +195,7 @@ También intervienen diferencias de resolución, iluminación, vegetación y geo
 | [Código fuente Python](codigo/cimlab_ai/) | Aplicación CIMLAB AI, preparación, entrenamiento, comparación y auditoría. |
 | [Auditor del manifiesto](codigo/auditar_manifest.py) | Verificación independiente de etiquetas, duplicados y particiones. |
 | [Guía de reproducibilidad](docs/GUIA_REPRODUCIBILIDAD.md) | Origen de datos, configuración y ejecución de scripts. |
-| [Bitácora de uso de IA](docs/BITACORA_USO_IA.md) | Registro de solicitudes reformuladas, apoyos de ChatGPT y comprobaciones del equipo. |
+| [Bitácora técnica de uso de IA](docs/BITACORA_USO_IA.md) | Consultas seleccionadas sobre código, procesamiento de datos, evaluación y documentación técnica. |
 | [Artículo técnico](docs/ARTICULO_IEEE_BORRADOR.md) | Texto académico con metodología, resultados y discusión. |
 | [Versión LaTeX IEEE](docs/ARTICULO_IEEE_PLANTILLA.tex) | Fuente para edición y maquetación en IEEEtran. |
 | [Tablas de resultados](resultados/) | Distribución y métricas registradas. |
@@ -209,11 +209,11 @@ python TF3/codigo/auditar_manifest.py "RUTA/manifest.csv" --salida "resumen_mani
 ```
 
 <a id="bitacora-ia"></a>
-## 🧾 8. Bitácora de uso de inteligencia artificial
+## 🧾 8. Bitácora técnica de uso de inteligencia artificial
 
-Durante el TF3 se utilizó **ChatGPT (OpenAI)** como apoyo para el diseño metodológico, la identificación de errores de la aplicación, la explicación de métricas, la revisión del procesamiento de imágenes y la organización de los entregables. Las decisiones sobre la clasificación binaria, los eventos incorporados y los entrenamientos ejecutados correspondieron al equipo.
+Durante el TF3 se utilizó **ChatGPT (OpenAI)** como apoyo para el diseño metodológico, la revisión de errores de programación, la interpretación de métricas, el procesamiento de imágenes y la documentación técnica. Las decisiones sobre la clasificación binaria, los eventos incorporados y los entrenamientos ejecutados correspondieron al equipo.
 
-La bitácora documenta **32 consultas representativas** agrupadas en cinco etapas: análisis inicial, adaptación a múltiples eventos, preparación técnica, entrenamiento y comparación, y comunicación académica. Cada registro contiene el **prompt reformulado**, la asistencia obtenida y la evidencia o comprobación disponible. Se presentan como **síntesis redactadas a partir de la conversación**, no como transcripciones literales.
+La bitácora reúne **29 consultas técnicas representativas** agrupadas en cinco etapas: diagnóstico inicial, adaptación multievento, preparación de datos, entrenamiento y evaluación, y documentación técnica. Cada registro contiene el **prompt reformulado**, la asistencia obtenida y la evidencia o comprobación disponible. Son **síntesis reformuladas de consultas realizadas**, no transcripciones literales ni un registro exhaustivo de todas las interacciones.
 
 | Etapa | Ejemplos de solicitudes realizadas | Evidencia del proyecto |
 |:--|:--|:--|
@@ -221,7 +221,7 @@ La bitácora documenta **32 consultas representativas** agrupadas en cinco etapa
 | Datos multievento | Incorporar Palu y comprobar etiquetas binarias compatibles | Auditoría de 106,540 edificios |
 | Preparación | Corregir lectura de TIFF RGB `int16`, bordes negros y particiones | Parches v0.5.3–v0.5.4 y manifiesto |
 | Modelos | Comparar Random Forest, DINOv2, ProtoNet y Hybrid | [Métricas de validación](resultados/REGISTRO_EXPERIMENTOS.md) |
-| Comunicación | Preparar artículo IEEE, README, gráficos y exposición | Documentos y figuras de TF3 |
+| Documentación | Organizar README, metodología del artículo y limitaciones | Documentación técnica del TF3 |
 
 **[Consultar la bitácora completa de uso de IA](docs/BITACORA_USO_IA.md)**
 
