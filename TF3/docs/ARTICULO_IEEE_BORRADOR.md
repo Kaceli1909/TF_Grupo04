@@ -37,6 +37,12 @@ Se implementaron **Random Forest**, **DINOv2 + XGBoost** y **ProtoNet DINO**, ad
 
 Se inició adicionalmente **ResNet18 Early Fusion** con un máximo de 20 épocas y lotes de 8 edificios. Como el entrenamiento no estaba completado al cierre de los registros, sus métricas intermedias no se incluyen en la comparación de modelos finalizados.
 
+### E. Trazabilidad del apoyo de herramientas de IA
+
+Se empleó **ChatGPT (OpenAI)** como herramienta auxiliar para discutir alternativas de procesamiento, interpretar mensajes de error y métricas, y estructurar código, tablas y texto técnico. Para transparentar su uso, se elaboró una [bitácora de consultas](BITACORA_USO_IA.md) con **32 prompts representativos reformulados**, sus objetivos, la asistencia recibida y la comprobación disponible. El registro no se presenta como transcripción literal del historial.
+
+El equipo definió la clasificación de daño, seleccionó los eventos y ejecutó los entrenamientos localmente. Los conteos y métricas se tomaron de los registros de CIMLAB AI; cuando se reconstruyeron valores a partir de métricas redondeadas, esa condición se declara expresamente. Las recomendaciones de la herramienta se contrastaron con el manifiesto, el código y los errores observados. Esta asistencia no sustituye la validación con el conjunto reservado de prueba ni la evaluación independiente del desempeño.
+
 ## III. Diseño de evaluación
 
 Se consideran **average precision (AP)**, **F1-score**, **recall** y **precisión** para la clase de daño. AP resume el comportamiento según distintos umbrales; F1 sintetiza el equilibrio entre precisión y recall en el umbral aplicado. Las métricas se calcularon sobre los 19,537 edificios de la validación conjunta. El conjunto test permanece reservado.

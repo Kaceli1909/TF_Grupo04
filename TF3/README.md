@@ -25,7 +25,8 @@
 5. [Resultados de validación](#resultados)
 6. [Discusión y limitaciones](#discusion)
 7. [Código y documentación](#codigo)
-8. [Referencias](#referencias)
+8. [Bitácora de uso de IA](#bitacora-ia)
+9. [Referencias](#referencias)
 
 <a id="objetivo"></a>
 ## 🎯 1. Objetivo y alcance
@@ -194,6 +195,7 @@ También intervienen diferencias de resolución, iluminación, vegetación y geo
 | [Código fuente Python](codigo/cimlab_ai/) | Aplicación CIMLAB AI, preparación, entrenamiento, comparación y auditoría. |
 | [Auditor del manifiesto](codigo/auditar_manifest.py) | Verificación independiente de etiquetas, duplicados y particiones. |
 | [Guía de reproducibilidad](docs/GUIA_REPRODUCIBILIDAD.md) | Origen de datos, configuración y ejecución de scripts. |
+| [Bitácora de uso de IA](docs/BITACORA_USO_IA.md) | Registro de solicitudes reformuladas, apoyos de ChatGPT y comprobaciones del equipo. |
 | [Artículo técnico](docs/ARTICULO_IEEE_BORRADOR.md) | Texto académico con metodología, resultados y discusión. |
 | [Versión LaTeX IEEE](docs/ARTICULO_IEEE_PLANTILLA.tex) | Fuente para edición y maquetación en IEEEtran. |
 | [Tablas de resultados](resultados/) | Distribución y métricas registradas. |
@@ -206,8 +208,27 @@ Para comprobar un manifiesto existente:
 python TF3/codigo/auditar_manifest.py "RUTA/manifest.csv" --salida "resumen_manifest.json"
 ```
 
+<a id="bitacora-ia"></a>
+## 🧾 8. Bitácora de uso de inteligencia artificial
+
+Durante el TF3 se utilizó **ChatGPT (OpenAI)** como apoyo para el diseño metodológico, la identificación de errores de la aplicación, la explicación de métricas, la revisión del procesamiento de imágenes y la organización de los entregables. Las decisiones sobre la clasificación binaria, los eventos incorporados y los entrenamientos ejecutados correspondieron al equipo.
+
+La bitácora documenta **32 consultas representativas** agrupadas en cinco etapas: análisis inicial, adaptación a múltiples eventos, preparación técnica, entrenamiento y comparación, y comunicación académica. Cada registro contiene el **prompt reformulado**, la asistencia obtenida y la evidencia o comprobación disponible. Se presentan como **síntesis redactadas a partir de la conversación**, no como transcripciones literales.
+
+| Etapa | Ejemplos de solicitudes realizadas | Evidencia del proyecto |
+|:--|:--|:--|
+| Diagnóstico inicial | Interpretar F1 bajo y revisar FP/FN con imágenes PRE/POST | Auditoría visual de validación |
+| Datos multievento | Incorporar Palu y comprobar etiquetas binarias compatibles | Auditoría de 106,540 edificios |
+| Preparación | Corregir lectura de TIFF RGB `int16`, bordes negros y particiones | Parches v0.5.3–v0.5.4 y manifiesto |
+| Modelos | Comparar Random Forest, DINOv2, ProtoNet y Hybrid | [Métricas de validación](resultados/REGISTRO_EXPERIMENTOS.md) |
+| Comunicación | Preparar artículo IEEE, README, gráficos y exposición | Documentos y figuras de TF3 |
+
+**[Consultar la bitácora completa de uso de IA](docs/BITACORA_USO_IA.md)**
+
+**Delimitación:** ChatGPT aportó explicaciones, propuestas de código y apoyo editorial; **los datos, ejecuciones, capturas y decisiones de aceptación fueron proporcionados o comprobados por el equipo**. Los resultados numéricos se basan en los registros de CIMLAB AI. El uso de IA no reemplaza la verificación experimental ni las referencias originales.
+
 <a id="referencias"></a>
-## 📚 8. Referencias
+## 📚 9. Referencias
 
 1. R. Gupta *et al.*, “xBD: A Dataset for Assessing Building Damage from Satellite Imagery”, 2019. https://arxiv.org/abs/1911.09296
 2. xView2, “Dataset and Challenge”. https://www.xview2.org/
