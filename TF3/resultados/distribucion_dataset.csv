@@ -1,0 +1,11 @@
+evento,particion,escenas,no_danados,danados,edificios
+mexico-earthquake,train,120,32066,130,32196
+mexico-earthquake,val,34,7734,32,7766
+mexico-earthquake,test,38,11284,116,11400
+palu-tsunami,train,111,25455,5538,30993
+palu-tsunami,val,40,10414,1357,11771
+palu-tsunami,test,42,10927,1487,12414
+TOTAL,train,231,57521,5668,63189
+TOTAL,val,74,18148,1389,19537
+TOTAL,test,80,22211,1603,23814
+TOTAL,all,385,97880,8660,106540

@@ -1,0 +1,5 @@
+﻿experimento,particion,modelo,tipo,ap,f1,recall,precision,estado
+Mexico_Palu_v054,val,random_forest,clasificador,0.5999,0.5703,0.5169,0.6360,finalizado
+Mexico_Palu_v054,val,dinov2_xgboost,clasificador,0.7400,0.6897,0.6033,0.8050,finalizado
+Mexico_Palu_v054,val,protonet_dino,clasificador,0.7195,0.6784,0.6386,0.7235,finalizado
+Mexico_Palu_v054,val,hybrid,ensamble,0.7768,0.7341,0.6796,0.7980,automatico_actualizado

@@ -1,0 +1,5 @@
+﻿experimento,split,modelo,total,positivos_reales,negativos_reales,tp,fp,fn,tn,f1_reportado,recall_reportado,precision_reportada,ap_reportado,procedencia_conteos
+Mexico_Palu_v054,val,random_forest,19537,1389,18148,718,411,671,17737,0.5703,0.5169,0.6360,0.5999,reconstruido
+Mexico_Palu_v054,val,dinov2_xgboost,19537,1389,18148,838,203,551,17945,0.6897,0.6033,0.8050,0.7400,reconstruido
+Mexico_Palu_v054,val,protonet_dino,19537,1389,18148,887,339,502,17809,0.6784,0.6386,0.7235,0.7195,registro_original
+Mexico_Palu_v054,val,hybrid,19537,1389,18148,944,239,445,17909,0.7341,0.6796,0.7980,0.7768,reconstruido
